@@ -7,11 +7,15 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
 
+def home(request):
+    if request.user.is_authentiated():
+        pass
 
+@login_required
 def timeline(request):
     latest_recommendation = Recommendation.object.all().order_by('submission_date')[:20]
     context = {'latest_recommendation': latest_recommendation}
-    return render(request, 'recommendation/base.html', context)
+    return render(request, context)
 
 @login_required
 def recommendations_page(request):
